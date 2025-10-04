@@ -1,10 +1,11 @@
-// import "../src/index.css";
+import { UserAuth } from "./context/AuthContext";
+import NonUserRoute from "./routes/NonUserRoute";
+import UserRoute from "./routes/UserRoute";
 export default function App() {
+  const { isLoggedOut } = UserAuth();
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-primary">
-        Hello world!
-      </h1>
+      <div>{isLoggedOut ? <NonUserRoute /> : <UserRoute />}</div>
     </>
   );
 }
