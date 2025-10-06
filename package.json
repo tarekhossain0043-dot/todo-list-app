@@ -1,7 +1,7 @@
 {
-  "name": "todo-list-app",
+  "name": "todo-list-apps",
   "private": true,
-  "homepage": "https://tarekhossain0043-dot.github.io/todo-list-app/",
+  "homepage": "https://tarekhossain0043-dot.github.io/todo-list-app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
