@@ -5,12 +5,10 @@ export const UserAuth = () => {
 };
 export default function AuthContextProvider({ children }) {
   const [isLoggedOut, setIsLoggedOut] = useState(true);
-  //   const value = {
-  //     isLoggedOut,
-  //   };
+  const value = {
+    isLoggedOut,
+  };
   return (
-    <UserContext.Provider value={{ isLoggedOut }}>
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={{ value }}>{children}</UserContext.Provider>
   );
 }

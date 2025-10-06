@@ -5,7 +5,7 @@ export default function App() {
   const { isLoggedOut } = UserAuth();
   return (
     <>
-      <div>{isLoggedOut ? <NonUserRoute /> : <UserRoute />}</div>
+      <div>{!isLoggedOut ? <NonUserRoute /> : <UserRoute />}</div>
     </>
   );
 }
