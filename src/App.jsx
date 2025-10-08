@@ -1,11 +1,14 @@
-import { UserAuth } from "./context/AuthContext";
-import NonUserRoute from "./routes/NonUserRoute";
-import UserRoute from "./routes/UserRoute";
+import Todos from "./component/Todos";
 export default function App() {
-  const { isLoggedOut } = UserAuth();
+  // const [isLogin, setIsLogin] = useAuth();
+
   return (
+    // <contextProvider>
+    //   <>{isLogin ? <NonUserRoute /> : <UserRoute />}</>
+    // </contextProvider>
     <>
-      <div>{!isLoggedOut ? <NonUserRoute /> : <UserRoute />}</div>
+      <Todos />
+      {/* <AddTodo /> */}
     </>
   );
 }
