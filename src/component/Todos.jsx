@@ -107,7 +107,7 @@ export default function Todos() {
         </button>
         {/* </form> */}
       </div>
-      <div className="absolute top-1/2 right-4 -translate-y-1/2">
+      <div className="w-[700px] h-full absolute top-1/2 right-4 -translate-y-1/2">
         <h2 className="text-[40px] uppercase font-semibold text-center text-red-500">
           my todo
         </h2>
