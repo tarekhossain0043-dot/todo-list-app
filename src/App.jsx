@@ -1,14 +1,14 @@
-import Todos from "./component/Todos";
+import Layout from "./prac-component/Layout";
+import MyTodo from "./prac-component/PracTodo";
+import TodosLogic from "./prac-component/TodosLogic";
 export default function App() {
   // const [isLogin, setIsLogin] = useAuth();
-
   return (
-    // <contextProvider>
-    //   <>{isLogin ? <NonUserRoute /> : <UserRoute />}</>
-    // </contextProvider>
     <>
-      <Todos />
-      {/* <AddTodo /> */}
+      <Layout>
+        <TodosLogic />
+        <MyTodo />
+      </Layout>
     </>
   );
 }
