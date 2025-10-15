@@ -1,14 +1,16 @@
-import Layout from "./prac-component/Layout";
-import MyTodo from "./prac-component/PracTodo";
-import TodosLogic from "./prac-component/TodosLogic";
+import { Route, Routes } from "react-router-dom";
+import Cart from "./component/Cart";
+import ProductList from "./component/ProductList";
+import { CartProvider } from "./context/CartContext";
 export default function App() {
-  // const [isLogin, setIsLogin] = useAuth();
   return (
     <>
-      <Layout>
-        <TodosLogic />
-        <MyTodo />
-      </Layout>
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </CartProvider>
     </>
   );
 }
