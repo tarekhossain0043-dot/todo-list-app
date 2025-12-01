@@ -50,8 +50,7 @@ const FilteredProduct = ({ searchTerm }) => {
               No products found matching "{searchTerm}".
             </p>
             <p className="text-md text-gray-400 mt-2">
-              Try searching for different keywords like 'Headphone', 'Coffee',
-              or 'Book'.
+              Try searching for different keywords like
             </p>
           </div>
         ) : (
