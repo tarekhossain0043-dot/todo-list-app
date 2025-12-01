@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { TopProducts } from "../../assets/assets_admin/assets";
 import { addToCart } from "../../redux/features/carts/CartSlice";
 import { setProducts } from "../../redux/features/products/ProductSlice";
@@ -15,7 +16,8 @@ const Products = () => {
   const handleProduct = (e, product) => {
     e.preventDefault();
     dispatch(addToCart(product));
-    alert("product added successfully!");
+    // toast
+    toast("product added successfully!");
   };
 
   const [showMoreProdcut, setShowMoreProduct] = useState(false);
