@@ -45,7 +45,7 @@ const FilteredProduct = ({ searchTerm }) => {
         </div>
         {filterProduct.length <= 0 ? (
           // No Results Found Message
-          <div className="md:col-span-2 lg:col-span-3 bg-white p-10 rounded-xl shadow-lg text-center">
+          <div className="md:col-span-2 max-h-40 lg:col-span-3 bg-white p-10 mb-10 rounded-xl shadow-lg text-center">
             <p className="text-xl font-medium text-gray-500">
               No products found matching "{searchTerm}".
             </p>
