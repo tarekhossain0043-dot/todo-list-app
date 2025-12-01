@@ -18,6 +18,11 @@ const Cart = () => {
     "123 default St. Default city,Dc"
   );
 
+  const handleOnProcced = () => {
+    navigate("/checkout");
+    product;
+  };
+
   // navigate
   const navigate = useNavigate();
 
@@ -161,7 +166,7 @@ const Cart = () => {
                   </span>
                 </div>
                 <button
-                  onClick={() => navigate("/CheckOut")}
+                  onClick={handleOnProcced()}
                   className="px-8 w-full py-4 bg-red-700 hover:bg-red-800 cursor-pointer transition-all duration-500 ease-in-out text-white text-sm capitalize shadow-sm"
                 >
                   proceed to checkout

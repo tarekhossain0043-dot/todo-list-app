@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { TopProducts } from "../assets/assets_admin/assets";
 import { addToCart } from "../redux/features/carts/CartSlice";
 import { setProducts } from "../redux/features/products/ProductSlice";
@@ -13,7 +14,7 @@ const Shop = () => {
   const handleProduct = (e, product) => {
     e.preventDefault();
     dispatch(addToCart(product));
-    alert("product added successfully!");
+    toast("product added successfully");
   };
   return (
     <div className="bg-slate-100">
