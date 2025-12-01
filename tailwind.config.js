@@ -12,7 +12,7 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     screens: {
-      xs: "0px",
+      xs: "250px",
       sm: "350px",
       md: "768px",
       lg: "976px",
@@ -23,11 +23,14 @@ export default {
       padding: "0 1rem",
     },
     extend: {
+      // colors: {
+      //   primary: "#13b3d8", // Apni ekhon 'text-primary' ba 'bg-primary' use korte parben
+      //   black: "#0f1827",
+      //   secondary: "#747a81",
+      //   custom_gra: "text-gradient-to-r from-[#4289f7] to-[#13b3d8]",
+      // },
       colors: {
-        primary: "#13b3d8", // Apni ekhon 'text-primary' ba 'bg-primary' use korte parben
-        black: "#0f1827",
-        secondary: "#747a81",
-        custom_gra: "text-gradient-to-r from-[#4289f7] to-[#13b3d8]",
+        primary: "#10b981",
       },
 
       fontFamily: {
