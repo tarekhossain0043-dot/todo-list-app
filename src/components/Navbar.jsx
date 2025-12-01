@@ -1,19 +1,26 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { assets, navMenu, shopCategory } from "../assets/assets_admin/assets";
-import { setSearchTerms } from "../redux/features/products/ProductSlice";
+// import { setSearchTerms } from "../redux/features/products/ProductSlice";
 
-const Navbar = ({ productNumber }) => {
+const Navbar = ({ productNumber, searchTerm, setSearchTerm }) => {
   const nevigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [search, setSearch] = useState("");
-  const handleSearchTerm = (e) => {
-    e.preventDefault();
-    dispatch(setSearchTerms(search));
+  //search input handler
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.value);
     nevigate("/filterProduct");
   };
+
+  // const [search, setSearch] = useState("");
+  // const searchText = useSelector((state) => state.product.searchText);
+  // const handleSearchTerm = (e) => {
+  //   e.preventDefault();
+  //   dispatch(setSearchTerms(e.target.value));
+  //   nevigate("/filterProduct");
+  // };
   return (
     <div className="bg-slate-50 shadow-sm pt-5">
       <div className="container m-auto">
@@ -32,12 +39,13 @@ const Navbar = ({ productNumber }) => {
             {/* product Search area */}
             <div className="search_field flex max-[768px]:hidden flex-1">
               <form
-                onSubmit={handleSearchTerm}
+                // onSubmit={handleSearchTerm}
                 className="form relative w-full lg:min-w-[700px] md:min-w-[500px] xl:min-w-[900px]"
               >
                 <input
                   type="text"
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={handleSearchChange}
+                  value={searchTerm}
                   placeholder="search any product.."
                   className="text-slate-300 w-full text-xs font-normal placeholder:text-slate-300 placeholder:capitalize p-3 pr-8 border-slate-200 rounded-md cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-400"
                 />
@@ -94,7 +102,7 @@ const Navbar = ({ productNumber }) => {
                     />
                   </div>
                   <div className="shop-category group-hover:translate-y-5 group-hover:visible group-hover:opacity-[1] opacity-0 invisible transition-all duration-500 ease-in-out absolute left-0 translate-y-10">
-                    <div className="w-[215px] bg-slate-100 shadow-sm overflow-y-scroll scroll-smooth max-h-[300px] relative z-[99999] p-4 rounded-sm">
+                    <div className="w-[215px] bg-slate-100 shadow-sm overflow-y-scroll scroll-smooth max-h-[300px] relative z-50 p-4 rounded-sm">
                       {shopCategory.map((shopCategoryItem) => {
                         return (
                           <ul

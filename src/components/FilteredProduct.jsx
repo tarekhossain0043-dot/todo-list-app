@@ -1,23 +1,62 @@
+import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { addToCart } from "../redux/features/carts/CartSlice";
-const FilteredProduct = () => {
-  const ProductFiltering = useSelector((state) => state.product.filterData);
+const FilteredProduct = ({ searchTerm }) => {
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.product.product);
+  console.log(product);
+  product.includes;
+
+  const filterProduct = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return product;
+    }
+
+    const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
+    return product.filter((pro) => {
+      const titleMatch = pro.title.toLowerCase().includes(lowerCaseSearchTerm);
+      const categoryMatch = pro.desc
+        .toLowerCase()
+        .includes(lowerCaseSearchTerm);
+      const priceMatch = pro.price.toString().includes(lowerCaseSearchTerm);
+
+      return titleMatch || categoryMatch || priceMatch;
+    });
+  }, [searchTerm]);
+
   const handleProduct = (e, product) => {
     e.preventDefault();
     dispatch(addToCart(product));
-    alert("product added successfully!");
+    toast("product added successfully!");
   };
   return (
     <div className="bg-slate-100">
       <div className="container">
-        {ProductFiltering.length <= 0 ? (
-          <div className="flex min-h-[40vh] items-center justify-center">
-            <p className="text-center">Product not found!</p>
+        {/* Product List/Results */}
+        <div className="mb-4 text-center py-5 sm:text-left text-center">
+          <p className="text-sm font-medium text-slate-400">
+            displaying
+            <span className="font-medium px-2 text-slate-500 text-right">
+              {filterProduct.length}
+            </span>{" "}
+            of product
+          </p>
+        </div>
+        {filterProduct.length <= 0 ? (
+          // No Results Found Message
+          <div className="md:col-span-2 lg:col-span-3 bg-white p-10 rounded-xl shadow-lg text-center">
+            <p className="text-xl font-medium text-gray-500">
+              No products found matching "{searchTerm}".
+            </p>
+            <p className="text-md text-gray-400 mt-2">
+              Try searching for different keywords like 'Headphone', 'Coffee',
+              or 'Book'.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5">
-            {ProductFiltering.map((product) => {
+            {filterProduct.map((product) => {
               return (
                 <div
                   key={product.id}

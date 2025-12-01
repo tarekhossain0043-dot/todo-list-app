@@ -5,6 +5,7 @@ import { assets } from "../assets/assets_admin/assets";
 import ChangeAddressModal from "../components/ChangeAddressModal";
 import Modal1 from "../modal/Modal1";
 
+import { toast } from "react-toastify";
 import {
   decrease,
   increase,
@@ -18,11 +19,6 @@ const Cart = () => {
     "123 default St. Default city,Dc"
   );
 
-  const handleOnProcced = () => {
-    navigate("/checkout");
-    product;
-  };
-
   // navigate
   const navigate = useNavigate();
 
@@ -33,6 +29,25 @@ const Cart = () => {
   // const [showAllProduct, setShowAllProduct] = useState(false);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOnProcced = () => {
+    navigate("/checkout");
+    // dispatch(clearCart());
+    // dispatch(
+    //   setCheckoutData({
+    //     products: cartData.product,
+    //     totalQuantity: cartData.totleQuantity,
+    //     totalPrice: cartData.totalPrice,
+    //   })
+    // );
+    toast("checkout success!");
+    // dispatch({
+    //   type: PURGE,
+    //   key: "root",
+    //   result: () => null,
+    // });
+    // console.log(cart);
+  };
   return (
     <div>
       {showProduct.length > 0 ? (
@@ -166,7 +181,7 @@ const Cart = () => {
                   </span>
                 </div>
                 <button
-                  onClick={handleOnProcced()}
+                  onClick={() => handleOnProcced()}
                   className="px-8 w-full py-4 bg-red-700 hover:bg-red-800 cursor-pointer transition-all duration-500 ease-in-out text-white text-sm capitalize shadow-sm"
                 >
                   proceed to checkout

@@ -17,10 +17,15 @@ import { useSelector } from "react-redux";
 import Product_Details from "./components/Product_Details";
 function App() {
   const [orderData, serOderData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const productNumber = useSelector((state) => state.cart.product);
   return (
     <>
-      <Navbar productNumber={productNumber} />
+      <Navbar
+        productNumber={productNumber}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -38,7 +43,10 @@ function App() {
           element={<CheckOut serOderData={serOderData} />}
         />
         <Route path="/successOrder" element={<OrderSucc />} />
-        <Route path="/filterProduct" element={<FilteredProduct />} />
+        <Route
+          path="/filterProduct"
+          element={<FilteredProduct searchTerm={searchTerm} />}
+        />
       </Routes>
       <Footer />
     </>

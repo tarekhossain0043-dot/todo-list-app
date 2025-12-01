@@ -13,13 +13,22 @@ const productSlice = createSlice({
     setProducts(state, action) {
       state.product = action.payload;
     },
-    setSearchTerms(state, action) {
-      state.searchText = action.payload;
-      state.filterData = state.product.filter((singlePro) =>
-        singlePro.title.toLowerCase().includes(state.searchText.toLowerCase())
-      );
-    },
+    // setSearchTerms(state, action) {
+    //   const term = action.payload.toLowerCase();
+    //   state.searchText = term;
+    //   // state.searchText = action.payload;
+    //   state.filterData = state.product.filter((product) => {
+    //     return (
+    //       product.title.toLowerCase().includes(term) ||
+    //       product.desc.toLowerCase().includes(term) ||
+    //       product.price.includes(term)
+    //     );
+    //   });
+    //   state.filterData = state.product.filter((singlePro) =>
+    //     singlePro.title.toLowerCase().includes(state.searchText.toLowerCase())
+    //   );
+    // },
   },
 });
-export const { setProducts, setSearchTerms } = productSlice.actions;
+export const { setProducts } = productSlice.actions;
 export default productSlice.reducer;
