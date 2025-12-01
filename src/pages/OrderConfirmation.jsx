@@ -1,9 +1,12 @@
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-const OrderConfirmation = ({ orderData }) => {
+const OrderConfirmation = ({ orderData, billingInfo }) => {
   console.log(orderData);
-  const product = orderData.productData;
+  // const product = orderData.productData;
   const navigate = useNavigate();
+  const checkoutProduct = useSelector((state) => state.cart.checkOutData);
+  const { totalPrice, product } = checkoutProduct;
   return (
     <div className="bg-slate-100 py-20">
       <div className="container max-w-3xl w-full m-auto flex items-center justify-center">
@@ -20,28 +23,28 @@ const OrderConfirmation = ({ orderData }) => {
               <h3 className="text-slate-700 capitalize font-bold">
                 Order summary
               </h3>
-              <span className="text-slate-400 text-sm">
+              {/* <span className="text-slate-400 text-sm">
                 order number : {orderData.totleQuantity}
-              </span>{" "}
+              </span>{" "} */}
               <br />
               <span className="text-slate-400 text-sm">
-                order from : {orderData.orderInfoData.fullName} <br />
-                email : {orderData.orderInfoData.email} <br />
-                phone : {orderData.orderInfoData.phone} <br />
+                order from : {billingInfo.fullName} <br />
+                email : {billingInfo.email} <br />
+                phone : {billingInfo.phone} <br />
               </span>
               <hr className="border-b border-b-slate-200" />
               <span className="text-slate-400 text-sm">
-                address : {orderData.orderInfoData.address} <br />
-                zip : {orderData.orderInfoData.zip} <br />
-                city : {orderData.orderInfoData.city} <br />
+                address : {billingInfo.address} <br />
+                zip : {billingInfo.zip} <br />
+                city : {billingInfo.city} <br />
               </span>
               <hr className="border-b border-b-slate-200" />
-              <span className="text-slate-400 text-sm">
+              {/* <span className="text-slate-400 text-sm">
                 Card Holder : {orderData.orderInfoData.cardHolder} <br />
                 Card Number : {orderData.orderInfoData.cardNum} <br />
                 Ex: : {orderData.orderInfoData.expireDate} <br />
                 cvv : {orderData.orderInfoData.cvv} <br />
-              </span>
+              </span> */}
             </div>
             <div className="mt-4">
               <div className="flex items-center gap-4">
@@ -69,7 +72,7 @@ const OrderConfirmation = ({ orderData }) => {
                 <h4 className="text-slate-700 capitalize text-xl font-medium mb-5">
                   order summary
                 </h4>
-                <div>
+                <div className="max-h-[34vh] h-full overflow-scroll">
                   <ul className="flex flex-col gap-2">
                     {product.map((pro) => (
                       <li className="border-b last-of-type:border-b-0 border-b-slate-200 mb-2 pb-2 flex items-start justify-between">
@@ -100,7 +103,7 @@ const OrderConfirmation = ({ orderData }) => {
                     total price :
                   </span>
                   <span className="text-slate-800 text-sm">
-                    $ {orderData.totalPrice.toFixed(0)}
+                    $ {totalPrice.toFixed(0)}
                   </span>
                 </div>
               </div>

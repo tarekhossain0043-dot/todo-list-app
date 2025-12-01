@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { assets } from "../assets/assets_admin/assets";
-const CheckOut = ({ serOderData }) => {
+const CheckOut = ({ serOderData, billingInfo, setBillingInfo }) => {
   const [billingInforShow, setBillingInforShow] = useState(false);
   const [shippingInfoShow, setShippingInfoShow] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState(false);
   const [paymentSys, setPaymentSys] = useState("cod");
 
   const cart = useSelector((state) => state.cart);
+  const checkoutProduct = useSelector((state) => state.cart.checkOutData);
+  const { totalPrice, totleQuantity, product } = checkoutProduct;
 
   const [billingInfoData, setBillingInfoData] = useState({
     fullName: "",
@@ -25,11 +28,33 @@ const CheckOut = ({ serOderData }) => {
     cashOndelivary: "",
     cvv: "",
   });
-  console.log(billingInfoData);
 
-  const navigate = useNavigate();
+  console.log(billingInfoData);
+  // btn disabled logic
+  const [isPlaceOrderDisabled, setIsPlaceOrderDisabled] = useState(true);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBillingInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    const allFieldsFilled =
+      billingInfo.fullName.trim() !== "" &&
+      billingInfo.email.trim() !== "" &&
+      billingInfo.phone.trim() !== "" &&
+      billingInfo.address.trim() !== "" &&
+      billingInfo.zip.trim() !== "" &&
+      billingInfo.city.trim() !== "";
+    setIsPlaceOrderDisabled(!allFieldsFilled);
+  }, [billingInfo]);
 
   const handleOrderPlace = () => {
+    if (isPlaceOrderDisabled) return;
+
+    toast("Order Placed Successfully!");
     const newOrder = {
       productData: cart.product,
       orderInfoData: billingInfoData,
@@ -37,7 +62,21 @@ const CheckOut = ({ serOderData }) => {
     };
     serOderData(newOrder);
     navigate("/order-confirmation");
+
+    dispatch(clearCart());
   };
+
+  const navigate = useNavigate();
+
+  // const handleOrderPlace = () => {
+  //   const newOrder = {
+  //     productData: cart.product,
+  //     orderInfoData: billingInfoData,
+  //     totalPrice: cart.totalPrice,
+  //   };
+  //   serOderData(newOrder);
+  //   navigate("/order-confirmation");
+  // };
 
   return (
     <div className="bg-slate-100 py-12">
@@ -85,12 +124,14 @@ const CheckOut = ({ serOderData }) => {
                       type="text"
                       className="w-full border border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-sm text-slate-600 pr-6"
                       name="fullName"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          fullName: e.target.value,
-                        })
-                      }
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     fullName: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
+                      value={billingInfo.fullName}
                       id="fullName"
                       placeholder="Enter fullname"
                     />
@@ -106,12 +147,14 @@ const CheckOut = ({ serOderData }) => {
                       type="text"
                       className="w-full border text-sm border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-slate-600 pr-6"
                       name="email"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          email: e.target.value,
-                        })
-                      }
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     email: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
+                      value={billingInfo.email}
                       id="email"
                       placeholder="Enter Email"
                     />
@@ -127,12 +170,14 @@ const CheckOut = ({ serOderData }) => {
                       type="tel"
                       className="w-full border text-sm border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-slate-600 pr-6"
                       name="phone"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          phone: e.target.value,
-                        })
-                      }
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     phone: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
+                      value={setBillingInfo.phone}
                       id="phone"
                       maxLength={11}
                       placeholder="Enter Phone"
@@ -179,12 +224,14 @@ const CheckOut = ({ serOderData }) => {
                       type="text"
                       className="w-full border border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-sm text-slate-600 pr-6"
                       name="address"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          address: e.target.value,
-                        })
-                      }
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     address: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
+                      value={setBillingInfo.address}
                       id="address"
                       placeholder="Enter nick address"
                     />
@@ -200,12 +247,14 @@ const CheckOut = ({ serOderData }) => {
                       type="code"
                       className="w-full border text-sm border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-slate-600 pr-6"
                       name="zip"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          zip: e.target.value,
-                        })
-                      }
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     zip: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
+                      value={setBillingInfo.zip}
                       id="zip"
                       placeholder="Enter Zip Code"
                     />
@@ -221,12 +270,14 @@ const CheckOut = ({ serOderData }) => {
                       type="text"
                       className="w-full border text-sm border-slate-200 shadow-sm text-slate-600 capitalize cursor-pointer transition-all duration-300 ease-in-out outline-none focus:ring-1 ring-blue-500 p-4 text-slate-600 pr-6"
                       name="city"
-                      onChange={(e) =>
-                        setBillingInfoData({
-                          ...billingInfoData,
-                          city: e.target.value,
-                        })
-                      }
+                      value={setBillingInfo.city}
+                      // onChange={(e) =>
+                      //   setBillingInfoData({
+                      //     ...billingInfoData,
+                      //     city: e.target.value,
+                      //   })
+                      // }
+                      onChange={handleInputChange}
                       id="city"
                       placeholder="Enter your city"
                     />
@@ -411,42 +462,49 @@ const CheckOut = ({ serOderData }) => {
                 <h4 className="text-slate-700 capitalize text-xl font-medium mb-5">
                   order summary
                 </h4>
-                {cart.product.map((product) => (
-                  <div>
-                    <ul className="flex flex-col gap-2">
-                      <li className="border-b last-of-type:border-b-0 border-b-slate-200 mb-2 pb-2 flex items-start justify-between">
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={product.img}
-                            alt={product.desc}
-                            className="w-20 h-20"
-                          />
-                          <p className="text-slate-600 mb-0 text-sm capitalize">
-                            {product.title}
-                            <span className="block pr-2">
-                              ${product.price} x{" "}
-                              <span className="pl-2">{product.quantity}</span>
-                            </span>
+                <div className="max-h-[34vh] h-full overflow-scroll">
+                  {product.map((product) => (
+                    <div key={product.id}>
+                      <ul className="flex flex-col gap-2">
+                        <li className="border-b  last-of-type:border-b-0 border-b-slate-500 mb-2 pb-2 flex items-start justify-between">
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={product.img}
+                              alt={product.desc}
+                              className="w-20 h-20"
+                            />
+                            <p className="text-slate-600 mb-0 text-sm capitalize">
+                              {product.title}
+                              <span className="block pr-2">
+                                ${product.price} x{" "}
+                                <span className="pl-2">{product.quantity}</span>
+                              </span>
+                            </p>
+                          </div>
+                          <p className="text-slate-600 mb-0 text-sm">
+                            $ {product.price}
                           </p>
-                        </div>
-                        <p className="text-slate-600 mb-0 text-sm">
-                          $ {product.price}
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                ))}
+                        </li>
+                      </ul>
+                    </div>
+                  ))}
+                </div>
                 <div className="flex items-center justify-between my-6">
                   <span className="text-slate-600 capitalize text-sm">
                     total price :
                   </span>
                   <span className="text-slate-800 text-sm">
-                    $ {cart.totalPrice.toFixed(0)}
+                    $ {totalPrice.toFixed(0)}
                   </span>
                 </div>
                 <button
                   onClick={handleOrderPlace}
-                  className="py-3 bg-red-500 transition-all duration-300 hover:bg-red-600 text-center capitalize font-medium block w-full border-0 cursor-pointer"
+                  disabled={isPlaceOrderDisabled}
+                  className={`${
+                    isPlaceOrderDisabled
+                      ? "cursor-not-allowed bg-slate-400 opacity-20 py-3 shadow-sm"
+                      : "cursor-pointer bg-red-500 hover:bg-red-600 py-3 shadow-sm"
+                  }py-4 transition-all duration-300 text-center capitalize font-medium block w-full border-0`}
                 >
                   place order
                 </button>

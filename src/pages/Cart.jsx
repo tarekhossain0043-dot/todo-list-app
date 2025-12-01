@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { assets } from "../assets/assets_admin/assets";
 import ChangeAddressModal from "../components/ChangeAddressModal";
 import Modal1 from "../modal/Modal1";
-
-import { toast } from "react-toastify";
 import {
+  clearCart,
   decrease,
   increase,
   removeFromCard,
+  saveCartForCheckout,
 } from "../redux/features/carts/CartSlice";
 
 const Cart = () => {
@@ -31,6 +32,8 @@ const Cart = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOnProcced = () => {
+    dispatch(saveCartForCheckout());
+    dispatch(clearCart());
     navigate("/checkout");
     // dispatch(clearCart());
     // dispatch(
@@ -181,7 +184,7 @@ const Cart = () => {
                   </span>
                 </div>
                 <button
-                  onClick={() => handleOnProcced()}
+                  onClick={handleOnProcced}
                   className="px-8 w-full py-4 bg-red-700 hover:bg-red-800 cursor-pointer transition-all duration-500 ease-in-out text-white text-sm capitalize shadow-sm"
                 >
                   proceed to checkout

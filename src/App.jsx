@@ -19,6 +19,15 @@ function App() {
   const [orderData, serOderData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const productNumber = useSelector((state) => state.cart.product);
+  const [billingInfo, setBillingInfo] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    // shiping info
+    address: "",
+    zip: "",
+    city: "",
+  });
   return (
     <>
       <Navbar
@@ -36,11 +45,22 @@ function App() {
         <Route path="/product/:id" element={<Product_Details />} />
         <Route
           path="/order-confirmation"
-          element={<OrderConfirmation orderData={orderData} />}
+          element={
+            <OrderConfirmation
+              orderData={orderData}
+              billingInfo={billingInfo}
+            />
+          }
         />
         <Route
           path="/checkout"
-          element={<CheckOut serOderData={serOderData} />}
+          element={
+            <CheckOut
+              billingInfo={billingInfo}
+              setBillingInfo={setBillingInfo}
+              serOderData={serOderData}
+            />
+          }
         />
         <Route path="/successOrder" element={<OrderSucc />} />
         <Route
